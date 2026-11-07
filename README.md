@@ -30,13 +30,18 @@ Bellabeat products include:
 ## Ask
 **Key stakeholders**
 Key stakeholders are Urška Sršen, Bellabeat's cofounder and Chief Creative Officer, Sando Mur, Mathematician and Bellabeat's cofounder, and the Bellabeat marketing and analytics team. 
+
 **Deliverable**
 The business task is to analyze smart device usage data on non-Bellabeat smart devices tracking users' activity, sleep, and weight data to identify insights to promote healthy habits, improve user engagement, and to inform product features individualized to customer needs.
 ## Prepare
-**
+**Data preparation**
+
+**Data source description**
 
 ## Process
+**
 
+**Documentation of any cleaning or manipulation of data**
 ## Analyze 
 
 ## Share 
