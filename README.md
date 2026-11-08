@@ -10,7 +10,7 @@ I will be using the data analysis process provided through Coursera's Google Dat
 
 Through this case study I will be using **Python** since it is a powerful, high-level, versatile language that allows data professionals to analyze data in a fast and efficient manner.
 
-The link to the Kaggle Notebook can be found here (
+The link to the Kaggle Notebook can be found here (https://www.kaggle.com/code/carlycampbell/bellabeat-case-study)
 
 I will be using the data analysis process provided in the Google Data Analytics Course: ask, prepare, process, analyze, and share.
 
