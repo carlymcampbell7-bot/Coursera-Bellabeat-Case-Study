@@ -14,7 +14,7 @@ The link to the Kaggle Notebook can be found here (https://www.kaggle.com/code/c
 
 I will be using the data analysis process provided in the Google Data Analytics Course: ask, prepare, process, analyze, and share.
 
-## Buisness Problem
+## Business Problem
 
 Bellabeat, a successful company, is a high-tech manufacturer of health-focused products for women. Cofounder and Chief Creative Officer of Bellabeat, Urška Sršen, believes that by analyzing smart device fitness data (FitBit Fitness Tracker Data), the company could gain valuable insights on consumer usage to use for marketing strategies and potential growth opportunities. 
 
