@@ -10,14 +10,13 @@ I will be using the data analysis process provided through Coursera's Google Dat
 
 Through this case study I will be using **Python** since it is a powerful, high-level, versatile language that allows data professionals to analyze data in a fast and efficient manner.
 
-The link to the Kaggle Notebook can be found here (https://www.kaggle.com/code/carlycampbell/bellabeat-case-study)
+The link to the [Kaggle notebook](https://www.kaggle.com/code/carlycampbell/bellabeat-case-study)
 
 I will be using the data analysis process provided in the Google Data Analytics Course: ask, prepare, process, analyze, and share.
 
 ## Business Problem
 
-Bellabeat, a successful company, is a high-tech manufacturer of health-focused products for women. Cofounder and Chief Creative Officer of Bellabeat, Urška Sršen, believes that by analyzing smart device fitness data (FitBit Fitness Tracker Data), the company could gain valuable insights on consumer usage to use for marketing strategies and potential growth opportunities. 
-
+Bellabeat develops wellness products designed to empower women to improve their health through better tracking and insights.
 Bellabeat products include: 
 
   **Bellabeat app:** The Bellabeat app connects to their smart devices and provides users with health data related to their activity, sleep, stress, menstrual cycle, and mindfulness habits to help users understand their current habits and progress in healthy decisions. 
@@ -30,38 +29,42 @@ Bellabeat products include:
 
   **Bellabeat membership:** In addition, Bellabeat offers subscription based membership program to give users 24/7 access to individualized advice on nutrition, activity, sleep, health and beauty, and mindfulness. 
 
+The business task is to analyze usage patterns from non-Bellabeat smart devices to uncover trends in activity, sleep, and health behavior. These insights can help Bellabeat improve future product features and marketing strategies that encourage healthier habits among its users.
 
 ## Ask: work to understand the task to be solved and/or questions to be answered.
 **Key stakeholders**
 Key stakeholders are Urška Sršen, Bellabeat's cofounder and Chief Creative Officer, Sando Mur, Mathematician and Bellabeat's cofounder, and the Bellabeat marketing and analytics team. 
 
 **Deliverable**
-The business task is to analyze smart device usage data on non-Bellabeat smart devices tracking users' activity, sleep, and weight data to identify insights to promote healthy habits, improve user engagement, and to inform product features individualized to customer needs.
+The goal is to analyze smart device data to identify usage trends, understand behaviors related to activity and sleep, and provide recommendations that Bellabeat could use to better engage users and grow its membership and product adoption.
 ## Prepare: find & collect data needed to answer the questions.
 **Data source:**
 Data was recommended through Google Data Analytics course, and is publicly avaiable on Kaggle, titled FitBit Fitness Tracker Data from Möbius:   (https://www.kaggle.com/datasets/arashnic/fitbit/data)
 
 I will be using the ROCCC framework from the Google Data Analytics course to evaluate the data source:
 
-**Relevant:** This dataset includes insights on minute-level output for physical activity, heart rate, and sleep monitoring, which is relevant to analyzing user wellness and health patterns for Bellabeat's products.
+**Relevant:** The dataset includes information on activity, sleep, calories, and weight, which is directly relevant to Bellabeat’s wellness-focused products.
 
-**Original:** This dataset is not and was collected a third-party  provider via Amazon Mechanical Turk who surveyed 30 real users that consented as respondents. The data is publicly available on Kaggle.
+**Original:** The data was collected from a third-party source via Amazon Mechanical Turk from 30 real users who consented to participate.
 
 **Comprehensive:** The dataset covers steps, sleep hours, calories burned, weight, and other important variables that can be used to find solutions for Bellabeat's business tasks. 
 
-**Current:** This dataset was generated between 03/12/2016-05/12/2016. Since it is now 2026, data is not current and may not include new factors and differing consumer insights that would be important to consider. 
+**Current:** Current: The dataset was collected in 2016, so it is not current and may not reflect current user behavior or new product trends. 
 
-**Cited:** Data source is collected from third-party source so it is unknown.
+**Cited:** The source is publicly available but not directly cited by Bellabeat, and its origin is not fully verified.
 
 **Limitations in dataset:** 
-- There is only data available from 30 different participants, the data shows that there are 35 different users for daily activity, 24 users for sleep, and 13 users for weight data. Possible explanations for the 35 different recorded users could be some users owning multiple products under different Id's, or an error in the data description. 
-- Gender is not specified in this data which is an important factor when considering the data.
+- There is only data available from 30 different participants, which is a relatively small sample size
+- The data shows that there are 35 different users for daily activity, 24 users for sleep, and 13 users for weight data. Possible explanations for the 35 different recorded users could be some users owning multiple products under different Id's, or an error in the data description. 
+- Gender is not specified in this data which is an important factor when considering the data for a women-focused health product.
 - The sample size of 30 FitBit users is not an accurate representation of the fitness population as a whole. 
 - The data is not current, as it was collected in 2016 and it is now 2026.
 - The data is collected via a distributed survey and we are unable to ensure its integrity or accuracy.
-- The weight log dataset is incomplete, possibly suggesting low user engagement.
+- The weight log dataset is incomplete, possibly suggesting limited user engagement with that feature.
 
-Overall, this dataset is considered poor quality and a higher quality dataset is recommended to be used in order to gain valuable consumer insights to improve business growth.
+Overall, the dataset is useful for a preliminary analysis, but it is not ideal for drawing strong conclusions about a broader population. A more current and representative dataset would provide better insights for Bellabeat’s business strategy.
+
+
 
 **Import libraries and load data**
 
@@ -88,7 +91,22 @@ print(weight2.head())
 
 
 ## Process: clean & organize data.
-All data cleaning processes are contained in the project's kaggle notebook. 
+The data was imported and cleaned using Python in a Kaggle notebook. The analysis included:
+
+- Merging daily activity datasets
+
+- Removing duplicate records
+
+- Converting date columns to datetime format
+
+- Checking missing values
+
+- Cleaning incomplete weight entries
+
+- Creating new variables such as total sleep hours and day-of-week
+
+- Standardizing column names for consistency
+ 
 
 ```python
 # Merge daily activity & weight datasets & clean duplicates
@@ -114,18 +132,11 @@ sleep['SleepDay'] = pd.to_datetime(sleep['SleepDay'], format='%m/%d/%Y %I:%M:%S 
 print(daily_combined.dtypes)
 print(weight_combined.dtypes)
 print(sleep.dtypes)
-```
-```python
+
 # Check for missing values
 print(daily_combined.isnull().sum())
 print(weight_combined.isnull().sum())
 print(sleep.isnull().sum())
-```
-Code returned 'Fat' missing values count of 94, I explored it further with summary statistics of the column excluding missing values, visualizing the missing values distribution, and comparing rows with and without missing Fat. Reference Kaggle notebook for more details.
-```python
-# Remove rows where 'Fat' is missing values
-weight_cleaned = weight_combined.dropna(subset=['Fat'])
-print(weight_cleaned['Fat'].describe())
 ```
 ```python
 # Create new columns, convert minutes asleep to hours, extract day of week
@@ -135,39 +146,54 @@ daily_combined['DayOfWeek'] = daily_combined['ActivityDate'].dt.day_name()
 print(sleep[['TotalMinutesAsleep', 'TotalSleepHours']].head())
 print(daily_combined[['ActivityDate', 'DayOfWeek']].head())
 ```
-Then I converted column names to snake_case format, refer to Kaggle notebook to see code. 
 ```python
 # Number of individual users for each dataset
 print(f"daily users: {daily_combined['Id'].nunique()}"),
 print(f"sleep users: {sleep['Id'].nunique()}"),
 print(f"weight users: {weight_combined['Id'].nunique()}"),
-```
-```python
+
 # Explore numerical summaries
 print(daily_combined['total_steps'].describe())
 print(weight_combined['weight_kg'].describe())
 print(sleep['total_sleep_hours'].describe())
 ```
-```python
-# Explore numerical summaries
-print(daily_combined['total_steps'].describe())
-print(weight_combined['weight_kg'].describe())
-print(sleep['total_sleep_hours'].describe())
-```
-I then identified outliers for each dataset, refer to Kaggle notebook to see code. 
 
 ## Analyze & Share: data analysis to find trends and relationships to find answers, create visualizations to present. 
 
-Refer to Kaggle notebook to see full code analysis.
+The full analysis, including all code and visualizations, is available in the Kaggle notebook. The main analysis focused on:
 
-I explored first explored summary statistics of each dataset. I found that 
-- the average steps taken per day is 7,247.
-- average distance is about 5.19 km which is closely matching tracker distance 5.17 km, which could indicate consistent tracking
-- mean for logged_activities_distance is very low, 0.13 km and median is 0, most users did not log additional activities beyond automatic tracking
-- average total_sleep_hours is about 7 hours 
-Then I found the average steps per user and average steps by day of the week. The findings suggested users prefer to track activities during weekdays over weekends.
+- Summary statistics for activity, sleep, and weight
 
-I grouped by date and calculated average steps over time, then visualized it in a line plot.
+- Trends in steps and calories burned
+
+- Sleep patterns and sedentary time
+
+- Activity level distributions
+
+- Relationships between daily activity and health outcomes
+
+
+
+```python
+# How much time users spend inactive
+daily_combined['sedentary_minutes_percent'] = (daily_combined['sedentary_minutes'] / (24*60)) * 100
+print("Summary statistics for sedentary time percentage:")
+print(daily_combined['sedentary_minutes_percent'].describe())
+
+# [out]
+
+Summary statistics for sedentary time percentage:
+count    1373.000000
+mean       68.987922
+std        21.860763
+min         0.000000
+25%        50.625000
+50%        73.472222
+75%        86.597222
+max       100.000000
+Name: sedentary_minutes_percent, dtype: float64
+```
+This data shows that on average, users spend about 69% of their tracked time being sedentary. 
 ```python
 # Group by date and calculate average steps
 steps_over_time = daily_combined.groupby('activity_date')['total_steps'].mean().reset_index()
@@ -191,35 +217,7 @@ plt.show()
 ```
 <img width="704" height="547" alt="download-1" src="https://github.com/user-attachments/assets/e18f77ac-b754-4a0f-b257-451112ba5a3e" />
 There is a positive correlation. Wide range in calories being burned, explanation for this could be due to differing workouts and gender differences that were not recorded in the data. 
-```python
-# Distribution of activity levels
-plt.figure(figsize=(6,4))
-sns.countplot(data=daily_combined, x='activity_level', order=['Low', 'Moderate', 'High'])
-plt.title('Activity Level Distribution')
-plt.show()
-```
-<img width="540" height="393" alt="download-2" src="https://github.com/user-attachments/assets/3eb7031f-57df-480d-a9f2-ad00e140dda2" />
-This visual shows most users spend majority of their activity level in the low category, but there are also significant amounts in the moderate and high categories.
-```python
-# How much time users spend inactive
-daily_combined['sedentary_minutes_percent'] = (daily_combined['sedentary_minutes'] / (24*60)) * 100
-print("Summary statistics for sedentary time percentage:")
-print(daily_combined['sedentary_minutes_percent'].describe())
 
-# [out]
-
-Summary statistics for sedentary time percentage:
-count    1373.000000
-mean       68.987922
-std        21.860763
-min         0.000000
-25%        50.625000
-50%        73.472222
-75%        86.597222
-max       100.000000
-Name: sedentary_minutes_percent, dtype: float64
-```
-This data shows that on average, users spend about 69% of their tracked time being sedentary. 
 ```python
 # Align data by date
 merged_data = daily_combined[['activity_date', 'total_steps']].merge(
@@ -231,20 +229,15 @@ merged_data = daily_combined[['activity_date', 'total_steps']].merge(
 correlation_matrix = merged_data[['total_steps', 'total_sleep_hours', 'weight_kg']].corr()
 print(correlation_matrix)
 
-# [out]
+...
+
                      total_steps  total_sleep_hours  weight_kg
 total_steps           1.000000          -0.018766        NaN
 total_sleep_hours    -0.018766           1.000000        NaN
 weight_kg                  NaN                NaN        NaN
 ```
 This data shows there is essentially no linear relationship between total steps and total sleep hours in the data, and that the weight_kg column has missing values causing correlation to not be computed.
-```python
-# Boxplot for sleep hours
-sns.boxplot(y=sleep['total_sleep_hours'])
-plt.title('Total Sleep Hours Distribution')
-plt.show()
-```
-<img width="563" height="416" alt="download-3" src="https://github.com/user-attachments/assets/660740ce-0c65-4c7a-9852-aab80f6fb888" />
+
 
 ```python
 # Distribution with histograms
@@ -272,18 +265,71 @@ plt.show()
 <img width="686" height="470" alt="download" src="https://github.com/user-attachments/assets/e0e18b06-1a3d-4bd6-ab8a-c1d2cc606921" />
 <img width="686" height="470" alt="download-1" src="https://github.com/user-attachments/assets/3394531f-5431-4eb2-b852-7a39441e65b1" />
 <img width="695" height="470" alt="download-2" src="https://github.com/user-attachments/assets/ed2493e5-943d-443f-ba71-7593d9fb3a31" />
-These distribution plots show averages for total steps, sleep hours, and weight, showing that users are not getting, on average, the recommended amount of steps and sleep per day. 
+**Key findings**
+I found that:
 
-I also plotted the outliers for each dataset for columns total_steps, sleep_hours, and weight_kg. Refer to Kaggle notebook to see code.
+- Average daily steps were approximately 7,247
+
+- Average daily sleep was about 6.9 hours
+
+- Average sedentary time was high, suggesting many users spent a large portion of their day inactive
+
+- Users generally logged lower levels of activity and did not consistently meet recommended fitness benchmarks
+
+- There was a positive relationship between steps and calories burned
+
+These visualizations indicated that while users were tracking activity, many were still not meeting daily health recommendations. The data also suggested a moderate to high level of inactivity, which presents an opportunity for Bellabeat to support users with habit-building tools and personalized guidance.
 
 ## Act: 
 **Data trends**
-- High rates of sedentary activity levels suggests that majority of users are using the smart devices to track sedentary activities rather than for tracking fitness activities.
-- Users are getting on average 7 hours of sleep, which indicates a large amount of users are not getting the recommended amount of healthy sleep hours per night.
-- Data also shows that on average users are getting 7,247 steps per day, which is less than the recommended daily step amount.
+- A large percentage of tracked time is sedentary, which indicates that many users are not consistently engaging in movement throughout the day and may be using the smart devices to track sedentary activities rather than for tracking fitness activities.
+
+- Activity levels are concentrated in low-to-moderate ranges rather than sustained active routines.
+  
+- Users are getting on average 6.9 hours of sleep, which indicates a large amount of users are not getting the recommended amount of healthy [sleep hours per night](https://www.nia.nih.gov/health/sleep/sleep-and-older-adults).
+  
+- Data also shows that on average users are getting 7,247 steps per day, which is less than the [recommended daily step amount](https://www.calm.com/blog/how-many-steps-per-day).
+  
 **How Bellabeat could use insights to influence marketing strategy**
-- Bellabeat can assist users by making an individualized fitness plan to increase daily step count, higher activity levels, better sleep, logging workouts and healthy motivation.
-- Bellabeat's team could provide users with educational resources like recommendations, benefits, and at-home tutorials of exercise and fitness topics to help encourage users creating and meeting fitness goals. 
-- Bellabeat could incorporate notifications and rewards to encourage users for creating and working towards their fitness goals.
-- Bellabeat could foster and create a community of its users, for women who prioritize health and wellness, where they can encourage one another and share new workouts or healthy meals, or even local groups where they can share their favorite hikes or workout classes.
+Bellabeat could use these insights to strengthen its product strategy and marketing approach:
+
+- Personalized fitness plans: Create individualized daily goals that encourage users to increase step count, improve activity levels, and develop healthier routines.
+
+- Sleep coaching: Offer insights and reminders that help users build better sleep habits and improve consistency.
+
+- Wellness nudges: Use notifications and reminders to motivate users to move more, meet hydration goals, and maintain routines.
+
+- Reward systems: Incorporate streaks, badges, or challenges to improve engagement and retention.
+
+- Community building: Create supportive communities where women can share goals, workouts, nutrition ideas, and motivation.
+
+- Educational content: Provide at-home workout tutorials, nutrition guidance, and healthy lifestyle resources tailored to the user’s goals.
+
+- Goal tracking and accountability: Help users set realistic milestones and provide progress tracking to improve adherence.
+
+## Conclusion
+This case study demonstrates that wearable data can provide valuable insights into user behavior and habits. The analysis shows that many users are not meeting recommended levels of daily movement and sleep, which highlights a clear opportunity for Bellabeat to create more engaging, personalized, and supportive wellness experiences.
+By leveraging these insights, Bellabeat can strengthen its product offerings, improve customer engagement, and build a stronger connection with women seeking healthier lifestyles.
+
+## Tools used
+- Python
  
+- Pandas
+
+- NumPy
+
+- Matplotlib
+
+- Seaborn
+
+- Kaggle
+## Project links
+- Kaggle notebook: [Google Data Analytics Bellabeat Case Study](https://www.kaggle.com/code/carlycampbell/bellabeat-case-study)
+
+- Data source: https://www.kaggle.com/datasets/arashnic/fitbit/data
+
+**Additional data sources:**
+
+- [How many steps per day should you take?](https://www.calm.com/blog/how-many-steps-per-day)
+
+- [Sleep and Older Adults](https://www.nia.nih.gov/health/sleep/sleep-and-older-adults)
